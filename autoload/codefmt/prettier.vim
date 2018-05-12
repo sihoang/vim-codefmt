@@ -15,7 +15,8 @@ function! codefmt#prettier#GetFormatter() abort
   endfunction
 
   function l:formatter.AppliesToBuffer() abort
-    return &filetype is# 'css' || &filetype is# 'html' || &filetype is# 'json' ||
+    return &filetype is# 'css' || &filetype is# 'scss' || &filetype is# 'less' ||
+        \ &filetype is# 'html' || &filetype is# 'json' ||
         \ &filetype is# 'javascript' || &filetype is# 'typescript' ||
         \ &filetype is# 'jsx' || &filetype is# 'javascript.jsx'
   endfunction
@@ -27,6 +28,12 @@ function! codefmt#prettier#GetFormatter() abort
   " @throws ShellError
   function l:formatter.FormatRange(startline, endline) abort
     let l:cmd = [s:plugin.Flag('prettier_executable'), '--stdin']
+
+    if &filetype == 'css' || &filetype == 'scss' || &filetype is# 'less' ||
+          \ &filetype == 'json' ||
+          \ &filetype == 'typescript'
+      let l:cmd = l:cmd + ['--parser', &filetype]
+    endif
 
     call maktaba#ensure#IsNumber(a:startline)
     call maktaba#ensure#IsNumber(a:endline)
