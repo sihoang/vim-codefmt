@@ -17,7 +17,7 @@ function! codefmt#prettier#GetFormatter() abort
   function l:formatter.AppliesToBuffer() abort
     return &filetype is# 'css' || &filetype is# 'html' || &filetype is# 'json' ||
         \ &filetype is# 'javascript' || &filetype is# 'typescript' ||
-        \ &filetype is# 'jsx'
+        \ &filetype is# 'jsx' || &filetype is# 'javascript.jsx'
   endfunction
 
   ""
