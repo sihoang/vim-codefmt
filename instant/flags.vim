@@ -77,6 +77,10 @@ call s:plugin.Flag('dartfmt_executable', 'dartfmt')
 call s:plugin.Flag('js_beautify_executable', 'js-beautify')
 
 ""
+" The path to the prettier executable.
+call s:plugin.Flag('prettier_executable', 'prettier')
+
+""
 " The path to the yapf executable.
 call s:plugin.Flag('yapf_executable', 'yapf')
 

@@ -21,6 +21,7 @@ endif
 let s:registry = s:plugin.GetExtensionRegistry()
 call s:registry.SetValidator('codefmt#EnsureFormatter')
 
+call s:registry.AddExtension(codefmt#prettier#GetFormatter())
 call s:registry.AddExtension(codefmt#jsbeautify#GetFormatter())
 call s:registry.AddExtension(codefmt#clangformat#GetFormatter())
 call s:registry.AddExtension(codefmt#gofmt#GetFormatter())
