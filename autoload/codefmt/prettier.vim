@@ -18,7 +18,8 @@ function! codefmt#prettier#GetFormatter() abort
     return &filetype is# 'css' || &filetype is# 'scss' || &filetype is# 'less' ||
         \ &filetype is# 'html' || &filetype is# 'json' ||
         \ &filetype is# 'javascript' || &filetype is# 'typescript' ||
-        \ &filetype is# 'jsx' || &filetype is# 'javascript.jsx'
+        \ &filetype is# 'jsx' || &filetype is# 'javascript.jsx' ||
+        \ &filetype is# 'tsx' || &filetype is# 'typescript.jsx'
   endfunction
 
   ""
@@ -29,10 +30,15 @@ function! codefmt#prettier#GetFormatter() abort
   function l:formatter.FormatRange(startline, endline) abort
     let l:cmd = [s:plugin.Flag('prettier_executable'), '--stdin']
 
-    if &filetype == 'css' || &filetype == 'scss' || &filetype is# 'less' ||
+    if &filetype == 'css' || &filetype == 'scss' ||
+          \ &filetype is# 'less' ||
           \ &filetype == 'json' ||
           \ &filetype == 'typescript'
       let l:cmd = l:cmd + ['--parser', &filetype]
+    endif
+
+    if &filetype == 'typescript.tsx'
+      let l:cmd = l:cmd + ['--parser', 'typescript']
     endif
 
     call maktaba#ensure#IsNumber(a:startline)
